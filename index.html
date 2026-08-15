@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Copa Bravex</title>
+
+  <!-- Icono real para "Añadir a pantalla de inicio" en iOS -->
+  <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/jgoyeneche1/bravex_assets/main/apple-touch-icon.png" />
+
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Bravex" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#065f46" />
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      background: #064e3b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, sans-serif;
+      color: #fff;
+    }
+    .txt { text-align: center; font-weight: bold; font-size: 14px; opacity: 0.85; }
+  </style>
+</head>
+<body>
+  <div class="txt">Cargando Copa Bravex...</div>
+  <script>
+    // Redirige de inmediato a la app real de Apps Script.
+    // Esta página solo existe para que iOS pueda leer el
+    // apple-touch-icon real (Apps Script no lo permite en su URL).
+    window.location.replace(
+      "https://script.google.com/macros/s/AKfycbwu7nFxS-1XHSXyEUvp4UwM-db_lVHZLrK0b6yl3zIH3PkyWiWJtrr4w2DT0X0g8vjR3g/exec"
+    );
+  </script>
+</body>
+</html>
