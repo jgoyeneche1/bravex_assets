@@ -16,45 +16,59 @@
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body {
-      height: 100%;
-      background: #064e3b;
+    html, body { height: 100%; }
+    body {
+      background-image: url('https://raw.githubusercontent.com/jgoyeneche1/bravex_assets/main/splash-bienvenida.jpg');
+      background-size: cover;
+      background-position: center;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+      padding: 26px 18px 34px;
+      text-align: center;
       font-family: -apple-system, sans-serif;
-      color: #fff;
-      gap: 22px;
     }
-    .titulo { text-align: center; font-weight: bold; font-size: 15px; opacity: 0.85; }
+    .frase {
+      color: #fff; font-style: italic; font-weight: 600; font-size: 13px; line-height: 1.5;
+      background: rgba(6,78,59,0.6); padding: 12px 16px; border-radius: 12px; max-width: 92%;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    }
+    .bienvenida-wrap {
+      background: rgba(6,78,59,0.6); padding: 10px 18px; border-radius: 12px;
+      display: flex; flex-direction: column; align-items: center; gap: 14px;
+    }
+    .titulo { color: #fff; font-weight: 900; font-size: 18px; letter-spacing: 1px; }
+    .sub { color: #a3e635; font-weight: bold; font-size: 12px; margin-top: 2px; }
     .boton {
       display: inline-block;
       background: #ffffff;
       color: #064e3b;
       font-weight: bold;
-      font-size: 17px;
-      padding: 14px 28px;
+      font-size: 16px;
+      padding: 12px 30px;
       border-radius: 12px;
       text-decoration: none;
     }
   </style>
 </head>
 <body>
-  <div class="titulo">Copa Bravex</div>
+  <div class="frase">“La competitividad característica fundamental de cualquier Bravo y jamás deberá anteponerse al disfrute, buen ambiente y buen humor de la partida.”</div>
 
-  <!--
-    IMPORTANTE: esta página YA NO redirige sola.
-    Antes redirigía automáticamente al cargar (window.location.replace),
-    y eso hacía que cuando el usuario tocaba "Compartir > Añadir a
-    pantalla de inicio", Safari ya había saltado a la página de Apps
-    Script (sin apple-touch-icon), así que iOS seguía leyendo la
-    página equivocada. Ahora la navegación es manual (un toque), para
-    que esta página nunca se mueva sola y "Añadir a pantalla de
-    inicio" siempre vea el <head> correcto con el ícono real.
-  -->
-  <a class="boton" href="https://script.google.com/macros/s/AKfycbwu7nFxS-1XHSXyEUvp4UwM-db_lVHZLrK0b6yl3zIH3PkyWiWJtrr4w2DT0X0g8vjR3g/exec">
-    Abrir Copa Bravex ▶
-  </a>
+  <div class="bienvenida-wrap">
+    <div>
+      <div class="titulo">COPA BRAVEX</div>
+      <div class="sub">¡Bienvenido a la Bravex Cup!</div>
+    </div>
+    <!--
+      Este botón lleva a la app real con ?inicio=1 -- ese parámetro le
+      dice a Code.gs (doGet) que ya se mostró la bienvenida acá, así que
+      la pantalla splash interna de copa_bravex.html no se vuelve a
+      mostrar (evita la doble pantalla de bienvenida).
+    -->
+    <a class="boton" href="https://script.google.com/macros/s/AKfycbwu7nFxS-1XHSXyEUvp4UwM-db_lVHZLrK0b6yl3zIH3PkyWiWJtrr4w2DT0X0g8vjR3g/exec?inicio=1">
+      Iniciar ▶
+    </a>
+  </div>
 </body>
 </html>
