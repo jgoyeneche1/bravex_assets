@@ -20,23 +20,41 @@
       height: 100%;
       background: #064e3b;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       font-family: -apple-system, sans-serif;
       color: #fff;
+      gap: 22px;
     }
-    .txt { text-align: center; font-weight: bold; font-size: 14px; opacity: 0.85; }
+    .titulo { text-align: center; font-weight: bold; font-size: 15px; opacity: 0.85; }
+    .boton {
+      display: inline-block;
+      background: #ffffff;
+      color: #064e3b;
+      font-weight: bold;
+      font-size: 17px;
+      padding: 14px 28px;
+      border-radius: 12px;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
-  <div class="txt">Cargando Copa Bravex...</div>
-  <script>
-    // Redirige de inmediato a la app real de Apps Script.
-    // Esta página solo existe para que iOS pueda leer el
-    // apple-touch-icon real (Apps Script no lo permite en su URL).
-    window.location.replace(
-      "https://script.google.com/macros/s/AKfycbwu7nFxS-1XHSXyEUvp4UwM-db_lVHZLrK0b6yl3zIH3PkyWiWJtrr4w2DT0X0g8vjR3g/exec"
-    );
-  </script>
+  <div class="titulo">Copa Bravex</div>
+
+  <!--
+    IMPORTANTE: esta página YA NO redirige sola.
+    Antes redirigía automáticamente al cargar (window.location.replace),
+    y eso hacía que cuando el usuario tocaba "Compartir > Añadir a
+    pantalla de inicio", Safari ya había saltado a la página de Apps
+    Script (sin apple-touch-icon), así que iOS seguía leyendo la
+    página equivocada. Ahora la navegación es manual (un toque), para
+    que esta página nunca se mueva sola y "Añadir a pantalla de
+    inicio" siempre vea el <head> correcto con el ícono real.
+  -->
+  <a class="boton" href="https://script.google.com/macros/s/AKfycbwu7nFxS-1XHSXyEUvp4UwM-db_lVHZLrK0b6yl3zIH3PkyWiWJtrr4w2DT0X0g8vjR3g/exec">
+    Abrir Copa Bravex ▶
+  </a>
 </body>
 </html>
