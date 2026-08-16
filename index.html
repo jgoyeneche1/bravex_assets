@@ -94,7 +94,11 @@
   <script>
     document.getElementById('btnIniciar').addEventListener('click', function () {
       var frame = document.getElementById('appFrame');
-      frame.src = "https://script.google.com/macros/s/AKfycbwu7nFxS-1XHSXyEUvp4UwM-db_lVHZLrK0b6yl3zIH3PkyWiWJtrr4w2DT0X0g8vjR3g/exec?inicio=1";
+      // "&_v=" con la hora exacta obliga a pedir la página de nuevo cada
+      // vez (evita que el teléfono/iOS se quede sirviendo una copia
+      // vieja cacheada del iframe cuando se publica una versión nueva en
+      // Apps Script).
+      frame.src = "https://script.google.com/macros/s/AKfycbwu7nFxS-1XHSXyEUvp4UwM-db_lVHZLrK0b6yl3zIH3PkyWiWJtrr4w2DT0X0g8vjR3g/exec?inicio=1&_v=" + Date.now();
       frame.style.display = 'block';
       document.getElementById('bienvenida').style.display = 'none';
     });
