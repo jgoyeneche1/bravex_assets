@@ -89,7 +89,10 @@
     setXFrameOptionsMode(ALLOWALL). El "?inicio=1" evita que se repita
     la bienvenida adentro de la app.
   -->
-  <iframe id="appFrame"></iframe>
+  <!-- clipboard-write/web-share: para que "Compartir"/"Copiar imagen" de
+       la tarjeta del Match entre Amigos funcionen adentro del iframe
+       (si el navegador del teléfono los soporta). -->
+  <iframe id="appFrame" allow="clipboard-write; web-share"></iframe>
 
   <script>
     // ---------------------------------------------------------------
