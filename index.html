@@ -92,13 +92,48 @@
   <iframe id="appFrame"></iframe>
 
   <script>
+    // ---------------------------------------------------------------
+    // Sesión "recordada" (nombre + PIN) para que la app no pida
+    // credenciales cada vez que se abre. Se guarda ACÁ (index.html en
+    // github.io) y no adentro del iframe de la app, porque Safari trata
+    // el contenido de script.google.com dentro de ese iframe como
+    // almacenamiento "de terceros" y no lo deja persistir de forma
+    // confiable entre aperturas -- esta página, en cambio, es de
+    // "primera parte" (es el dominio de arriba de todo) y no tiene ese
+    // problema. Se le pasa a la app por parámetros de URL en cada
+    // apertura; el servidor (Code.gs) vuelve a verificar nombre+PIN
+    // antes de confiar en nada.
+    var LS_SESION_ = 'bravex_sesion';
+
+    function leerSesionGuardada_() {
+      try { return JSON.parse(localStorage.getItem(LS_SESION_) || 'null'); }
+      catch (e) { return null; }
+    }
+
+    // La app (adentro del iframe) nos avisa por postMessage cuando
+    // alguien inicia o cierra sesión, para que quede guardada acá.
+    window.addEventListener('message', function (ev) {
+      var d = ev.data;
+      if (!d || typeof d !== 'object') return;
+      if (d.tipo === 'bravex_guardar_sesion' && d.nombre && d.pin) {
+        try { localStorage.setItem(LS_SESION_, JSON.stringify({ nombre: d.nombre, pin: d.pin })); } catch (e) {}
+      } else if (d.tipo === 'bravex_borrar_sesion') {
+        try { localStorage.removeItem(LS_SESION_); } catch (e) {}
+      }
+    });
+
     document.getElementById('btnIniciar').addEventListener('click', function () {
       var frame = document.getElementById('appFrame');
       // "&_v=" con la hora exacta obliga a pedir la página de nuevo cada
       // vez (evita que el teléfono/iOS se quede sirviendo una copia
       // vieja cacheada del iframe cuando se publica una versión nueva en
       // Apps Script).
-      frame.src = "https://script.google.com/macros/s/AKfycbwu7nFxS-1XHSXyEUvp4UwM-db_lVHZLrK0b6yl3zIH3PkyWiWJtrr4w2DT0X0g8vjR3g/exec?inicio=1&_v=" + Date.now();
+      var url = "https://script.google.com/macros/s/AKfycbwu7nFxS-1XHSXyEUvp4UwM-db_lVHZLrK0b6yl3zIH3PkyWiWJtrr4w2DT0X0g8vjR3g/exec?inicio=1&_v=" + Date.now();
+      var sesion = leerSesionGuardada_();
+      if (sesion && sesion.nombre && sesion.pin) {
+        url += "&u=" + encodeURIComponent(sesion.nombre) + "&p=" + encodeURIComponent(sesion.pin);
+      }
+      frame.src = url;
       frame.style.display = 'block';
       document.getElementById('bienvenida').style.display = 'none';
     });
