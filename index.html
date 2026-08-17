@@ -113,6 +113,28 @@
       catch (e) { return null; }
     }
 
+    // Id propio de ESTE teléfono (opaco, no es un dato personal -- solo
+    // un string al azar) -- se genera una sola vez y se guarda acá
+    // (primera parte, igual que la sesión de arriba). La app lo usa
+    // nada más para el aviso (no bloqueo) de "este nombre se usó hace
+    // poco desde otro teléfono" -- así reabrir la app en el mismo
+    // teléfono nunca dispara ese aviso, solo cuando cambia el teléfono.
+    var LS_DEVICE_ = 'bravex_device_id';
+
+    function obtenerDeviceId_() {
+      try {
+        var id = localStorage.getItem(LS_DEVICE_);
+        if (!id) {
+          id = (window.crypto && crypto.randomUUID) ? crypto.randomUUID()
+            : ('dev-' + Date.now() + '-' + Math.random().toString(36).slice(2));
+          localStorage.setItem(LS_DEVICE_, id);
+        }
+        return id;
+      } catch (e) {
+        return null;
+      }
+    }
+
     // La app (adentro del iframe) nos avisa por postMessage cuando
     // alguien inicia o cierra sesión, para que quede guardada acá.
     window.addEventListener('message', function (ev) {
@@ -136,6 +158,8 @@
       if (sesion && sesion.nombre && sesion.pin) {
         url += "&u=" + encodeURIComponent(sesion.nombre) + "&p=" + encodeURIComponent(sesion.pin);
       }
+      var deviceId = obtenerDeviceId_();
+      if (deviceId) { url += "&d=" + encodeURIComponent(deviceId); }
       frame.src = url;
       frame.style.display = 'block';
       document.getElementById('bienvenida').style.display = 'none';
